@@ -6,6 +6,7 @@ server:
 */
 import express from 'express'
 import kodersRouter from './routers/koders.router.js'
+import authRouter from './routers/auth.router.js'
 const server = express()
 
 // middlewares
@@ -13,6 +14,7 @@ server.use(express.json())
 
 // Routers
 server.use('/koders', kodersRouter)
+server.use('/auth', authRouter)
 
 
 // middleware - handleErrors

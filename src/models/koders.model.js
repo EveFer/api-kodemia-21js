@@ -1,41 +1,52 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose"
 
-// Schema de Koders
-
-const koderSchema = new mongoose.Schema({
+const koderSchema = new mongoose.Schema({ //recibirá un objeto
     name: {
-        type: String,
+        type: String, 
         required: true,
         minLength: 3,
         maxLength: 100,
-        trim: true
+        trim: true //si este nombre viene con espacios al principio y al final que los borre
     },
     lastName: {
-        type: String,
+        type: String, 
         required: true,
         minLength: 3,
         maxLength: 100,
-        trim: true
+        trim: true 
     },
     age: {
-        type: Number,
+        type: Number, 
         required: true,
         min: 1,
-        max: 100
+        max: 100,
     },
     gender: {
+        type: String, 
+        required: true,
+        enum: ['h', 'm'] //este campo solo podrá recibir h o m -> solo estos dos valores son válidos
+    },
+    isGraduated: {
+        type: Boolean,
+        default: false //si yo no pongo nada en este campo arrojará false 
+    },
+    email: {
         type: String,
         required: true,
-        enum: ['h', 'm'] // que valores son validos para este campo
+        trim: true,
+        match: /.*@.*\..*/
     },
-    isGraduate: {
-        type: Boolean,
-        default: false // tenga un valor por defecto
+    password: {
+        type: String,
+        required: true
     }
 })
 
-// crear el modelo
-//                          (nombre la collección a la que hacemos referencia, schema)
-const Koder = mongoose.model('koders', koderSchema)
+// Regex -> Nos permiten trabajar con patrones de busqueda sobre texto
+// /regex /
+/*
 
+*/
+
+const Koder = mongoose.model('koders', koderSchema)
 export {Koder}
