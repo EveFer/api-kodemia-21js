@@ -16,12 +16,8 @@ router.post('/', async(request, response, next) => {
             message: 'Koder creado!'
         })
     } catch (error) {
-        // PENDING: reemplazar por el middleware del handleErrors
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        // TODO: reemplazar por el middleware del handleErrors
+        next(error)
     }
 })
 
@@ -35,12 +31,8 @@ router.get('/', auth, async (request, response, next) => {
             }
         })
     } catch (error) {
-        // PENDING: reemplazar por el middleware del handleErrors
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        // TODO: reemplazar por el middleware del handleErrors
+        next(error)
     }
 })
 
@@ -56,12 +48,8 @@ router.get('/:id', auth, async (request, response, next) => {
             }
         })
     } catch (error) {
-        // PENDING: reemplazar por el middleware del handleErrors
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        // TODO: reemplazar por el middleware del handleErrors
+        next(error)
     }
 })
 
@@ -78,17 +66,18 @@ router.patch('/:id',auth,  async (request, response, next) => {
             }
         })
     } catch (error) {
-        // PENDING: reemplazar por el middleware del handleErrors
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        // TODO: reemplazar por el middleware del handleErrors
+        // response.status(400)
+        // response.json({
+        //     success: false,
+        //     message: error.message
+        // })
+        next(error)
     }
 })
 
 
-router.delete('/:id',auth,  async(request, response) => {
+router.delete('/:id',auth,  async(request, response, next) => {
     try {
         const {id} = request.params
         await kodersUsesCases.deleteById(id)
@@ -99,17 +88,16 @@ router.delete('/:id',auth,  async(request, response) => {
         })
     } catch (error) {
         // PENDING: reemplazar por el middleware del handleErrors
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        next(error)
     }
 })
 
 
-export default router
+// export default router
+// import algunRouter from 'path'
 
+// export {router}
+// import {router} from 'path'
 
 /*
 Práctica

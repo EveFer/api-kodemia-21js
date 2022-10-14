@@ -1,5 +1,6 @@
 import {Koder} from '../models/koders.model.js'
 import bcrypt from '../libs/bcrypt.js'
+import {StatusHttp} from '../libs/statusHttp.js'
 
 async function create(newKoder) {
     // modificar
@@ -9,7 +10,7 @@ async function create(newKoder) {
     //  si lo encuentra -> {}
     // si no lo encuentra -> undefined
 
-    if(koderFound) throw new Error('Ya existe un koder con este email')
+    if(koderFound) throw new StatusHttp('Ya existe un koder con este email', 400)
 
     // Encriptar el password
     const encryptedPassword = await bcrypt.hash(password)
@@ -32,6 +33,7 @@ function updateById(idKoder, newData) {
 function deleteById(idKoder) {
     return Koder.findOneAndDelete(idKoder)
 }
+
 
 export {
     getAll,

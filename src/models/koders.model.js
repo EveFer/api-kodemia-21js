@@ -48,5 +48,4 @@ const koderSchema = new mongoose.Schema({ //recibirá un objeto
 
 */
 
-const Koder = mongoose.model('koders', koderSchema)
-export {Koder}
+export const Koder = mongoose.model('koders', koderSchema)

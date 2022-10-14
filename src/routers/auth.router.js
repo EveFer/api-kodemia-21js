@@ -3,7 +3,7 @@ import * as authUseCases from '../useCases/auth.use.js'
 
 const router = express.Router()
 
-router.post('/login', async (request, response ) => {
+router.post('/login', async (request, response, next) => {
     try {
         const {email, password} = request.body
         const token = await authUseCases.login(email, password)
@@ -12,12 +12,16 @@ router.post('/login', async (request, response ) => {
             token
         })
     } catch (error) {
-        response.status(400)
-        response.json({
-            success: false,
-            message: error.message
-        })
+        // response.status(400)
+        // response.json({
+        //     success: false,
+        //     message: error.message
+        // })
+        next(error)
     }
 })
+
+// new Error() ❌
+// new StatusHttp() ✅
 
 export default router
