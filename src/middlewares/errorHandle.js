@@ -10,7 +10,7 @@ export function handleErrors(error, request, response, next) {
         response.status(400).json({success: false, message: error.message})
         return
     }
-    response.status(error.status || 500).json({
+    response.status(error.status).json({
         success: false, 
         message: error.message
     })

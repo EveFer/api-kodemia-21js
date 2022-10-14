@@ -1,5 +1,6 @@
 import express from 'express'
 import * as authUseCases from '../useCases/auth.use.js'
+import {StatusHttp} from '../libs/statusHttp.js'
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ router.post('/login', async (request, response, next) => {
         //     success: false,
         //     message: error.message
         // })
-        next(error)
+        next(new StatusHttp(error.message, error.status, error.name))
     }
 })
 

@@ -1,6 +1,7 @@
 import express from 'express'
 import * as kodersUsesCases from '../useCases/koders.use.js'
 import {auth} from '../middlewares/auth.js'
+import {StatusHttp} from '../libs/statusHttp.js'
 
 const router = express.Router()
 // La comunicación de a afuera hacia adentro
@@ -17,7 +18,7 @@ router.post('/', async(request, response, next) => {
         })
     } catch (error) {
         // TODO: reemplazar por el middleware del handleErrors
-        next(error)
+        next(new StatusHttp(error.message, error.status, error.name))
     }
 })
 
@@ -32,7 +33,7 @@ router.get('/', auth, async (request, response, next) => {
         })
     } catch (error) {
         // TODO: reemplazar por el middleware del handleErrors
-        next(error)
+        next(new StatusHttp(error.message, error.status, error.name))
     }
 })
 
@@ -72,7 +73,7 @@ router.patch('/:id',auth,  async (request, response, next) => {
         //     success: false,
         //     message: error.message
         // })
-        next(error)
+        next(new StatusHttp(error.message, error.status, error.name))
     }
 })
 
@@ -88,7 +89,7 @@ router.delete('/:id',auth,  async(request, response, next) => {
         })
     } catch (error) {
         // PENDING: reemplazar por el middleware del handleErrors
-        next(error)
+        next(new StatusHttp(error.message, error.status, error.name))
     }
 })
 
