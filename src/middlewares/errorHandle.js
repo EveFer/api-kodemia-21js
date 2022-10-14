@@ -1,5 +1,5 @@
 
-export function handleErrors(error, request, response, next) {
+export function errorHandle(error, request, response, next) {
     console.log('======')
     console.log(error.name)
     console.log(error.status)
@@ -13,3 +13,5 @@ export function handleErrors(error, request, response, next) {
         message: error.message
     })
 }
+
+export {errorHandle}
