@@ -1,7 +1,5 @@
-// Una aplicación de manejo de errores con un middleware:
+
 export function handleErrors(error, request, response, next) {
-    // console.log(err);
-    // res.status(500).send('An internal server error occurred');
     console.log('======')
     console.log(error.name)
     console.log(error.status)
