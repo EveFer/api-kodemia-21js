@@ -93,7 +93,7 @@ router.delete('/:id',auth,  async(request, response, next) => {
 })
 
 
-// export default router
+export default router
 // import algunRouter from 'path'
 
 // export {router}

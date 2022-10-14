@@ -1,7 +1,7 @@
 import {Koder} from '../models/koders.model.js'
 import bcrypt from '../libs/bcrypt.js'
 import jwt from '../libs/jwt.js'
-import {StatusHttp} from '../libs/statusHttp'
+import {StatusHttp} from '../libs/statusHttp.js'
 
 async function login(email, password){
     const koderFound = await Koder.findOne({email})
