@@ -1,13 +1,17 @@
 import express from 'express'
 import * as kodersUsesCases from '../useCases/koders.use.js'
 import {auth} from '../middlewares/auth.js'
+import {access} from '../middlewares/accessRole.js'
 import {StatusHttp} from '../libs/statusHttp.js'
 
 const router = express.Router()
 // La comunicación de a afuera hacia adentro
 // Endpoint -> casos de uso -> modelos
 
-router.post('/', async(request, response, next) => {
+router.use(auth)
+
+// admin
+router.post('/', access('admin'), async(request, response, next) => {
     try {
         const {body: newKoder} = request
         await kodersUsesCases.create(newKoder)
@@ -22,7 +26,8 @@ router.post('/', async(request, response, next) => {
     }
 })
 
-router.get('/', auth, async (request, response, next) => {
+// admin y user
+router.get('/',access('admin', 'user'), async (request, response, next) => {
     try {
         const allKoders = await kodersUsesCases.getAll()
         response.json({
@@ -37,7 +42,8 @@ router.get('/', auth, async (request, response, next) => {
     }
 })
 
-router.get('/:id', auth, async (request, response, next) => {
+// admin y user
+router.get('/:id',  access('admin', 'user'), async (request, response, next) => {
     try {
         const {id} = request.params
         const koder = kodersUsesCases.getById(id)
@@ -54,7 +60,8 @@ router.get('/:id', auth, async (request, response, next) => {
     }
 })
 
-router.patch('/:id',auth,  async (request, response, next) => {
+// admin
+router.patch('/:id', access('admin'),  async (request, response, next) => {
     try {
         const {id} = request.params
         const {body} = request
@@ -77,8 +84,8 @@ router.patch('/:id',auth,  async (request, response, next) => {
     }
 })
 
-
-router.delete('/:id',auth,  async(request, response, next) => {
+// admin
+router.delete('/:id', access('admin'), async(request, response, next) => {
     try {
         const {id} = request.params
         await kodersUsesCases.deleteById(id)

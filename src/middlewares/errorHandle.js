@@ -14,4 +14,3 @@ export function errorHandle(error, request, response, next) {
     })
 }
 
-export {errorHandle}
