@@ -28,6 +28,20 @@ async function loginUser(email, password) {
     return jwt.sign({id: userFound._id, role: userFound.role})
 }
 
+async function loginUsers(email, password) {
+    const userFound = await User.findOne({email})
+    const koderFound = await Koder.findOne({email})
+    const user = userFound || koderFound
+
+    if(!userFound) throw new StatusHttp('Credenciales invalidas', 400)
+
+    const isValidPassword = await bcrypt.compare(password, userFound.password)
+
+    if(!isValidPassword) throw new StatusHttp('Credenciales invalidas', 400)
+            // pasando el payload
+    return jwt.sign({id: userFound._id, role: userFound.role})
+}
+
 export {
     login,
     loginUser
